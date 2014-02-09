@@ -7,7 +7,7 @@ Make servers Ansible-ready
 Before you can use Ansible (or any other automated config management tool) on a new server you'll need to perform some
 basic configuration.
 
-To get some idea of what I'm talking about, search for _[First 5 Minutes on a Server (with Ansible)](https://www.google.com/webhp?source=search_app#q=First+5+Minutes+on+a+Server+(with+Ansible)&safe=active)_ for some background.
+To get some idea of what I'm talking about, search for[First 5 Minutes on a Server with Ansible](https://www.google.com/webhp?source=search_app#q=First+5+Minutes+on+a+Server+(with+Ansible)&safe=active) for some background.
 
 ## Goals
 
