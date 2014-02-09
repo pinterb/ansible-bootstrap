@@ -1,0 +1,4 @@
+.vagrant
+*.pub
+id_rsa
+id_dsa
