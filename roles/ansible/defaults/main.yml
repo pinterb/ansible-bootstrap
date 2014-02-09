@@ -1,0 +1,10 @@
+---
+# file: bootstrap/roles/ansible/defaults/main.yml
+
+# be sure to prefix these variables to avoid name collisions with Ansible proper. 
+
+z_ansible_repo: "https://github.com/ansible/ansible.git" 
+z_ansible_update_from_remote: "yes" 
+z_ansible_version: HEAD
+z_ansible_install_dir: "/usr/local"
+z_ansible_user: root 

@@ -1,0 +1,5 @@
+---
+# file: bootstrap/roles/user/handlers/main.yml
+
+- name: restart sshd 
+  service: name=sshd state=restarted 

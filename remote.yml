@@ -1,0 +1,7 @@
+---
+# file: playbooks/bootstrap/remote.yml
+
+- hosts: remote 
+  user: root
+  roles:
+    - { role: user }

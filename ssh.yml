@@ -1,0 +1,19 @@
+---
+# file: playbooks/bootstrap/ssh.yml
+# NOTE: This playbook should probably only be applied to a Vagrant environment. Not intended for production.
+
+- hosts: control 
+  user: root 
+  vars:
+    control_server_user: vagrant
+    remote_servers:
+      - ip: 192.168.33.10
+        port: 22
+        user: deploy
+      - ip: 192.168.33.20
+        port: 22
+        user: deploy
+  tasks:
+  - name: Perform initial ssh to remote(s) 
+    action: shell su - {{ control_server_user }} -c 'ssh -o StrictHostKeyChecking=no -p {{ item.port }} {{ item.user}}@{{ item.ip }} "echo Hello"'
+    with_items: remote_servers 

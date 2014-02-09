@@ -1,0 +1,4 @@
+---
+# file: bootstrap/roles/ansible/vars/main.yml
+
+z_ansible_home: "{{ z_ansible_install_dir }}/ansible"

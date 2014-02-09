@@ -1,0 +1,55 @@
+---
+# file: bootstrap/roles/user/tasks/main.yml
+
+- name: Check if group exists
+  shell: /usr/bin/getent group {{ bootstrap_group }} | /usr/bin/wc -l | tr -d ' '
+  register: group_exist
+  tags: bootstrap
+
+- name: Create a deployment group
+  group: name={{ bootstrap_group }} gid={{ bootstrap_gid }} state=present
+  when: group_exist.stdout == "0"
+  tags: bootstrap
+
+- name: Check if user exists
+  shell: /usr/bin/getent passwd {{ bootstrap_user }} | /usr/bin/wc -l | tr -d ' '
+  register: user_exist
+  tags: bootstrap
+
+- name: Add deployment user
+  user: name={{ bootstrap_user }} password={{ bootstrap_password }} createhome={{ bootstrap_create_home }} group={{ bootstrap_group }}
+  when: user_exist.stdout == "0"
+  tags: bootstrap
+
+- name: Add deployment user to sudoers
+  lineinfile: dest=/etc/sudoers regexp="{{ bootstrap_user }} ALL" line="{{ bootstrap_user }} ALL=(ALL) ALL" state=present
+  notify: restart sshd
+  tags: bootstrap
+
+- name: Create .ssh directories for deployment user
+  file: path=/home/{{ bootstrap_user }}/.ssh owner={{ bootstrap_user }} group={{ bootstrap_group }} mode=700 state=directory
+  tags: bootstrap
+
+  # kind of a hack to pick up all the public keys in this role's files directory
+- name: Collect pub key file contents
+  shell: cat {{ inventory_dir }}/../roles/user/files/public_keys/*.pub
+  register: pubkeyfiles
+  when: bootstrap_install_public_keys
+  tags: bootstrap
+
+- name: Add authorized key(s)
+  authorized_key: user={{ bootstrap_user }} key="{{ item }}"
+  with_items: pubkeyfiles.stdout_lines
+  when: bootstrap_install_public_keys
+  tags: bootstrap
+
+- name: Copy private key to deployment user
+  copy: src=private_key/{{ bootstrap_private_key }} dest=/home/{{ bootstrap_user }}/.ssh/{{ bootstrap_private_key }} owner={{ bootstrap_user }} group={{ bootstrap_group }} mode=600 
+  when: bootstrap_install_private_key 
+  tags: bootstrap
+
+- name: Disallow root SSH access
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitRootLogin" line="PermitRootLogin no" state=present
+  notify: restart sshd
+  when: (not bootstrap_allow_root_ssh) 
+  tags: bootstrap

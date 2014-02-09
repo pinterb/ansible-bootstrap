@@ -1,0 +1,22 @@
+---
+# file: bootstrap/roles/user/defaults/main.yml
+
+bootstrap_user: deploy 
+bootstrap_uid: 2000
+bootstrap_create_home: yes
+bootstrap_group: deploy
+bootstrap_gid: 2000
+
+# crypted password, generated on a Linux box using: 'openssl passwd -salt VKxa37iq78 -1 bit3m3' 
+bootstrap_password: '$1$VKxa37iq$ON5pHixkhiic1S0M99.J..'
+
+# Do you want any ssh public keys installed?
+bootstrap_install_public_keys: True
+
+# And what about a private key? 
+bootstrap_install_private_key: False 
+# The name of the file found in files/private_key
+bootstrap_private_key: id_rsa 
+
+# Should root user be allowed ssh access 
+bootstrap_allow_root_ssh: False 

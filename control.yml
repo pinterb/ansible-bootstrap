@@ -1,0 +1,12 @@
+---
+# file: playbooks/bootstrap/control.yml
+
+- hosts: control 
+  user: root
+  roles:
+    - { role: user, 
+              bootstrap_user: vagrant, 
+              bootstrap_group: vagrant, 
+              bootstrap_install_private_key: True,
+              bootstrap_install_public_keys: False }
+    - ansible

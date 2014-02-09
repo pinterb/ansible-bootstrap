@@ -1,0 +1,21 @@
+---
+# file: bootstrap/roles/ansible/tasks/main.yml
+
+- name: Is ansible currently installed?
+  shell: "[ -d {{ z_ansible_home }} ] && echo 'Found' || echo ''"
+  register: ansible_installed
+  tags: ansibleinstance 
+
+- name: Create ansible install directory
+  file: path={{ z_ansible_install_dir }} owner={{ z_ansible_user }} group={{ z_ansible_user }} mode=0775 state=directory
+  when: (not ansible_installed.stdout)
+  tags: ansibleinstance 
+
+- name: Checkout ansible from its repository
+  git: repo={{ z_ansible_repo }} dest={{ z_ansible_home }} update={{ z_ansible_update_from_remote }} version={{ z_ansible_version }}
+  tags: ansibleinstance 
+
+- name: Copy config to /etc/profile.d/ansible.sh
+  action: template src=etc_profiled_ansible.sh.j2 dest=/etc/profile.d/ansible.sh owner=root group=root mode=0644
+  when: (not ansible_installed.stdout)
+  tags: ansibleinstance 
