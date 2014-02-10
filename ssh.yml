@@ -1,5 +1,5 @@
 ---
-# file: playbooks/bootstrap/ssh.yml
+# file: bootstrap/ssh.yml
 # NOTE: This playbook should probably only be applied to a Vagrant environment. Not intended for production.
 
 - hosts: control 

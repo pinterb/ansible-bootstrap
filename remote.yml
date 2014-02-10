@@ -1,5 +1,5 @@
 ---
-# file: playbooks/bootstrap/remote.yml
+# file: bootstrap/remote.yml
 
 - hosts: remote 
   user: root

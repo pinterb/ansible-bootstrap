@@ -1,5 +1,5 @@
 ---
-# file: playbooks/bootstrap/control.yml
+# file: bootstrap/control.yml
 
 - hosts: control 
   user: root
