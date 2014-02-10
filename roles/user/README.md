@@ -19,7 +19,7 @@ This role creates a user that is used for Ansible configuration & deployment tas
 
 ## user password 
 
-The Ansible user module requires an encypted password.  To generate a crypted password find your self a
+The Ansible user module requires an encypted password.  To generate a crypted password, find yourself a
 Linux server and execute the following command:
 
     openssl passwd -salt VKxa37iq78 -1 bit3m3
@@ -28,7 +28,7 @@ Note: Obviously you should use your own salt and password values. Duh.
 
 ## role files
 
-Very important!! If you want to use ssh key pairs for remote access, you'll need to create a ssh key pair.  
+Very important!! If you want to use ssh key pairs for remote access, you'll need to create your own ssh key pair.  
 These keys should be located under this role's files sub-directory.  Please follow these [instructions](https://github.com/pinterb/ansible-bootstrap/blob/master/roles/user/files/README.md).
 
 ## role dependencies
