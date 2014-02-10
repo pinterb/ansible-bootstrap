@@ -1,38 +1,36 @@
-Role Name
-========
+# bootrap user 
 
-A brief description of the role goes here.
+This role creates a user that is used for Ansible configuration & deployment tasks.
 
-Requirements
-------------
+## role variables
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+|name|description|default|
+|----|-----------|-------|
+|`bootstrap_user`|the deployment user name|deploy|
+|`bootstrap_uid`|the uid of the deployment user|2000|
+|`bootstrap_create_home`|should a home directory be created? yes or no|yes|
+|`bootstrap_group`|the deployment user's group|deploy|
+|`bootstrap_gid`|the gid of the deployment user's group|2000|
+|`bootstrap_password`|the encryped password for the deployment user|$1$VKxa37iq$ON5pHixkhiic1S0M99.J.. (ie bit3m3)|
+|`bootstrap_install_public_keys`|do you want any ssh public keys installed?|True|
+|`bootstrap_install_private_key`|do you want a ssh private key installed?|False|
+|`bootstrap_private_key`|the name of the private key to be installed|id_rsa|
+|`bootstrap_allow_root_ssh`|should root user be allowed ssh access?|False|
 
-Role Variables
---------------
+## user password 
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The Ansible user module requires an encypted password.  To generate a crypted password find your self a
+Linux server and execute the following command:
 
-Dependencies
-------------
+    openssl passwd -salt VKxa37iq78 -1 bit3m3
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Note: Obviously you should use your own salt and password values. Duh.
 
-Example Playbook
--------------------------
+## role files
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Very important!! If you want to use ssh key pairs for remote access, you'll need to create a ssh key pair.  
+These keys should be located under this role's files sub-directory.  Please follow these [instructions](https://github.com/pinterb/ansible-bootstrap/blob/master/roles/user/files/README.md).
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## role dependencies
 
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+N/A
