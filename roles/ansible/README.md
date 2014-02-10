@@ -16,4 +16,3 @@ use this role to install on a single control server (centralized management) or 
 ## role dependencies
 
 N/A
-~
