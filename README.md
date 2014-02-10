@@ -9,6 +9,7 @@ basic configuration.
 
 To get some idea of what I'm talking about, search for [First 5 Minutes on a Server with Ansible](https://www.google.com/webhp?source=search_app#q=First+5+Minutes+on+a+Server+(with+Ansible)&safe=active) for some background.
 
+The idea is that you can use this repo as part of your Vagrant spin up.  Or standalone where this repo gets copied onto a remote server.
 ## Goals
 
 * Your configuration management is performed centrally by an Ansible control server.
